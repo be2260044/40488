@@ -24,7 +24,7 @@ CLEAN_SUBPROJECTS=${CLEAN_SUBPROJECTS_${SUBPROJECTS}}
 
 
 # Project Name
-PROJECTNAME=My Template2
+PROJECTNAME=Savitch_8thEd_Chap1_Prob10_BigC
 
 # Active Configuration
 DEFAULTCONF=Debug
