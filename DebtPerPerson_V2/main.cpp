@@ -20,12 +20,16 @@ using namespace std;
 //Program Execution Begins Here
 int main(int argc, char** argv) {
     //Declare all Variables Here
-    float debt16=19.4e12,//http://www.polidiotic.com/by-the-numbers/us-national-debt-by-year/
-            debt08=10e12,//http://www.polidiotic.com/by-the-numbers/us-national-debt-by-year/
-            usPop16=320e6,//http://www.worldometers.info/world-population/us-population/
-            usPop08=304e6,//https://fusiontables.google.com/DataSource?dsrcid=225439#rows:id=1
-            dtPer16,
-            dtPer08;
+    float debt16=19.4e12,//National debt in 2016
+            //http://www.polidiotic.com/by-the-numbers/us-national-debt-by-year/
+            debt08=10e12,//National debt in 2008
+            //http://www.polidiotic.com/by-the-numbers/us-national-debt-by-year/
+            usPop16=320e6,//US Population in 2016
+            //http://www.worldometers.info/world-population/us-population/
+            usPop08=304e6,//US Population in 2008
+            //https://fusiontables.google.com/DataSource?dsrcid=225439#rows:id=1
+            dtPer16,//Debt per person in 2016
+            dtPer08;//Debt per person in 2008
     //Input or initialize values Here
     
     //Process/Calculations Here
