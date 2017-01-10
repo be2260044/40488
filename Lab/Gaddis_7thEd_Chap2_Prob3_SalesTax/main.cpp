@@ -23,22 +23,24 @@ int main(int argc, char** argv) {
 
 //System Libraries Here
 #include <iostream>
+#include <cmath>
 using namespace std;
 
 //User Libraries Here
 
 //Global Constants Only, No Global Variables
 //Like PI, e, Gravity, or conversions
-const unsigned char PERCENT=100;
+const float PERCENT=100;
 //Function Prototypes Here
 
 //Program Execution Begins Here
 int main(int argc, char** argv) {
     //Declare all Variables Here
-    unsigned char stTxPct=4;//state tax percent
-    unsigned char ctTxPct=2;//county tax percent
+    int stTxPct=4;//state tax percent
+    int ctTxPct=2;//county tax percent
     
-    unsigned int prchase,stateTx,cntyTx,totTx,totPric;
+    float stateTx,cntyTx,totTx,totPric;
+    float prchase;
     //Input or initialize values Here
     cout<<"This is a program that calculates sales tax"<<endl;
     cout<<"The State tax is "<<static_cast<int>(stTxPct)<<"%"<<endl;
