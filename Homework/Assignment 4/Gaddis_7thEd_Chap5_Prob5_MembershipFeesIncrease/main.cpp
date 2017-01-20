@@ -21,15 +21,16 @@ using namespace std;
 int main(int argc, char** argv) {
     
     //Declare and initialize local Variables Here
-    float memFees;//membership fees
+    float memFees=2500;//membership fees
     
     //Input or initialize values Here
     cout<<"This table shows how much the membership fees "
                  "of a club increases over time"<<endl;
     for(int year=1;year<=6;year++){
-        memFees=2500*1.04;//2500 starting, increasing by 4% each year
+        memFees*=1.04;//2500 starting, increasing by 4% each year
                               //uses 5 to get results in increments of 5 minutes
-        cout<<"After year "<<year<<", the membership fees will be "
+        cout<<setprecision(2)<<fixed;
+        cout<<"After year "<<year<<", the membership fees will be $"
                 <<memFees<<endl; 
        
     }

@@ -22,9 +22,19 @@ using namespace std;
 //Program Execution Begins Here
 int main(int argc, char** argv) {
     //Declare all Variables Here
-    int salary=1,totPay=0,maxDays=31;//Salary and Pay in pennies
+    int salary=1,totPay=0,maxDays;//Salary and Pay in pennies
     
     //Input or initialize values Here
+    cout<<"This program calculates the value of doubling "
+            "a penny every day over time"<<endl;
+    cout<<"How many days would you like to calculate for?"<<endl;
+    cin>>maxDays;
+    //Validate Input
+    while (maxDays>31||maxDays<1){//validating guess range
+         cout<<"This is outside the range of valid numbers, "
+            "enter a value between 1-31"<<endl;
+            cin>>maxDays;
+                    }   
     
     //Process/Calculations Here
     for(int day=1;day<=maxDays;day++,salary*=2){
