@@ -9,19 +9,19 @@ CND_DISTDIR=dist
 # Debug configuration
 CND_PLATFORM_Debug=Cygwin-Windows
 CND_ARTIFACT_DIR_Debug=dist/Debug/Cygwin-Windows
-CND_ARTIFACT_NAME_Debug=characteroutput
-CND_ARTIFACT_PATH_Debug=dist/Debug/Cygwin-Windows/characteroutput
+CND_ARTIFACT_NAME_Debug=trianglechar_v1
+CND_ARTIFACT_PATH_Debug=dist/Debug/Cygwin-Windows/trianglechar_v1
 CND_PACKAGE_DIR_Debug=dist/Debug/Cygwin-Windows/package
-CND_PACKAGE_NAME_Debug=characteroutput.tar
-CND_PACKAGE_PATH_Debug=dist/Debug/Cygwin-Windows/package/characteroutput.tar
+CND_PACKAGE_NAME_Debug=trianglecharv1.tar
+CND_PACKAGE_PATH_Debug=dist/Debug/Cygwin-Windows/package/trianglecharv1.tar
 # Release configuration
 CND_PLATFORM_Release=Cygwin-Windows
 CND_ARTIFACT_DIR_Release=dist/Release/Cygwin-Windows
-CND_ARTIFACT_NAME_Release=characteroutput
-CND_ARTIFACT_PATH_Release=dist/Release/Cygwin-Windows/characteroutput
+CND_ARTIFACT_NAME_Release=trianglechar_v1
+CND_ARTIFACT_PATH_Release=dist/Release/Cygwin-Windows/trianglechar_v1
 CND_PACKAGE_DIR_Release=dist/Release/Cygwin-Windows/package
-CND_PACKAGE_NAME_Release=characteroutput.tar
-CND_PACKAGE_PATH_Release=dist/Release/Cygwin-Windows/package/characteroutput.tar
+CND_PACKAGE_NAME_Release=trianglecharv1.tar
+CND_PACKAGE_PATH_Release=dist/Release/Cygwin-Windows/package/trianglecharv1.tar
 #
 # include compiler specific variables
 #
