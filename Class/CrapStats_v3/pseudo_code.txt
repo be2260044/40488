@@ -1,0 +1,67 @@
+/* 
+ * File:   main.cpp
+ * Author: Bradley Erwin
+ * Created on January 18, 2017, 11:00 AM
+ * Final version on January 25, 2017 11:24 AM
+ * Purpose:  Craps Statistics
+*/
+//System Libraries Here
+//input output library
+//random numbers
+//time to set seed
+//file stream library
+//format library
+
+
+//User Libraries Here
+
+//Global Constants Only, No Global Variables
+//Like PI, e, Gravity, or conversions
+//Percentage conversion
+//Million
+//one hundred thousand
+
+//Function Prototypes Here
+
+//Main --> Program Execution Begins Here
+    //set random number seed
+    
+    //instantiate and open files
+    
+    
+    
+    //Declare and initialize all Variables Here
+    //number of games of craps
+    //counters/indicators
+    //average throw per game
+    
+    //Input the number of games
+    //Last line will be number of games from file
+    
+    //loop to end
+    //limit nGames
+    
+    //Loop and take Dice Statistics
+    
+        //call random number generator for the dice
+        //value from 1-6
+        //value from 1-6
+        //sum the dice
+        //initialize the throw count
+        //increment the average throw counter
+        //now determine wins or losses
+        //2,3,12 is a loss
+        //7,11 is a win
+        //any other throw requires repetition
+            //initialize the boolean for repeating
+            
+                //value from 1-6
+                //value from 1-6
+                //increments counts
+                //sum the dice
+		//record win, loss, or repeat
+			//find max throws
+    
+    
+    //Output all to a file
+
