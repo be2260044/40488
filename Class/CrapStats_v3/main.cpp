@@ -24,7 +24,7 @@ const int HUNTHSD=1e5;//one hundred thousand
 
 //Main --> Program Execution Begins Here
 int main(int argc, char** argv) {
-    //set random number seed
+    //Set random number seed
     srand(static_cast<unsigned int>(time(0)));
     
     //instantiate and open files
