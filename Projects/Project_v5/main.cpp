@@ -10,6 +10,7 @@
 #include <cstdlib>//random number generator seed
 #include <ctime>
 #include <iomanip>
+#include <fstream>
 using namespace std;
 
 //User Libraries Here
@@ -29,13 +30,15 @@ int main(int argc, char** argv) {
             c3Money=500,
             mnyLeft=500;
     
-    //Loop on the menu
+    //instantiate and open files
+    ifstream in;
+    ofstream out;
+    in.open("NumberofGames.dat");
+    out.open("ResultsOfGames.dat");
     
             //Input or initialize values Here
-            cout<<"How many computers would you like to play with?"<<endl;
-            cout<<"Type 1 for Problem with Do-While"<<endl;
-            cout<<"Type 2 for Problem with While"<<endl;
-            cout<<"Type 3 for Problem with For"<<endl;
+            cout<<"How many computers would you like to play with? "
+                    "(between 1 and 3)"<<endl;
             cin>>choice;
             while(choice>'3'||choice<'1'){
                 cout<<"Invalid choice, please choose between 1 and 3"<<endl;
