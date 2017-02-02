@@ -18,16 +18,18 @@ using namespace std;
 //Like PI, e, Gravity, or conversions
 
 //Function Prototypes Here
-float t24Inpt();
-float cnvCalc(float);
-float t12Otpt(float);
+void t24Inpt(int &,int &);         //Inputs military time
+int cnvCalc(int,char &);           //Converts to standard time and adds A or P
+void t12Otpt(int,int,int,char);    //Outputs standard time
 
 //Program Execution Begins Here
 int main(int argc, char** argv) {
     //Declare all Variables Here
-    char choice;
-    int milTime=0,
-            stdTime=0;
+    char choice,
+            amPm;
+    int milHrs=0,//Military time hours
+            milMins=0,//Military time minutes
+            stdHrs=0;
     
     //Loop on the menu
     do{
@@ -39,9 +41,11 @@ int main(int argc, char** argv) {
 
             //Switch to determine the problem
         switch(choice){
-            case '1':{float milTime=t24Inpt();
-            float stdTime=cnvCalc(milTime);
-            t12Otpt(stdTime);
+            case '1':{
+                t24Inpt(milHrs,milMins);//Input
+            stdHrs=cnvCalc(milHrs,amPm);//Conversion set = to stdHrs
+            t12Otpt(milHrs,milMins,stdHrs,amPm);//Output
+            break;
                 }
             default:
                 cout<<"You are exiting the program"<<endl;
@@ -61,14 +65,18 @@ int main(int argc, char** argv) {
 //inputs: weight (pounds, ounces)
 //outputs: weight (kilograms, grams)
 //******************************************************************************
-float t24Inpt(){
-    float pounds, ounces;
-    cout<<"How many pounds?"<<endl;
-    cin>>pounds;
-    cout<<"How many ounces?"<<endl;
-    cin>>ounces;
+void t24Inpt(int &hours,int &mins){
+    cout<<"Please input the time in 24 hour format. "
+            "Separate the hours and minutes with a space. "
+            "(eg 14:45 would be input as 14 45)"<<endl;
+    cin>>hours>>mins;
     
-    return pounds+ounces/16.0;
+    //Validate time
+    while(hours>23||mins>59){
+     cout<<"Invalid input, make sure the hours are between 0-23"
+             " and the minutes are between 0-59"<<endl;
+     cin>>hours>>mins;
+    }
 }
 
 //000000001111111111222222222233333333334444444444555555555566666666667777777777
@@ -78,9 +86,13 @@ float t24Inpt(){
 //inputs: datatype, range/validity, units, description
 //outputs: datatype, range/validity, units, description
 //******************************************************************************
-float cnvCalc(float pounds){
-    float kilograms=pounds/2.2046;
-    return kilograms;
+int cnvCalc(int hours,char &aP){
+    if(hours>12){
+        hours-=12;
+        aP='P';}
+    else{
+        aP='A';}
+    return hours;
 }
 
 //000000001111111111222222222233333333334444444444555555555566666666667777777777
@@ -90,9 +102,9 @@ float cnvCalc(float pounds){
 //inputs: datatype, range/validity, units, description
 //outputs: datatype, range/validity, units, description
 //******************************************************************************
-float t12Otpt(float kilograms){
-    cout<<"The length is "<<kilograms<<" kilograms or "
-            <<kilograms*1000<<" grams"<<endl;
+void t12Otpt(int mHrs,int mMins,int sdHrs,char aP){
+    cout<<mHrs<<":"<<mMins<<" is equivalent to "
+            ""<<sdHrs<<":"<<mMins<<" "<<aP<<"M"<<endl;
 }
 
 

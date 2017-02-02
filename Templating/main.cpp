@@ -1,7 +1,7 @@
 /* 
  * File:   main.cpp
  * Author: Bradley Erwin
- * Created on January 16, 2017, 6:30 PM
+ * Created on February 02, 2017, 1:00 PM
  * Purpose:  Template
  */
 
@@ -19,14 +19,15 @@ using namespace std;
 //Program Execution Begins Here
 int main(int argc, char** argv) {
     //Declare all Variables Here
-    char x=47;
-    //Input or initialize values Here
+   
     
+    //Input or initialize values Here
+   
     //Process/Calculations Here
     
+    
     //Output Located Here
-    cout<<x<<endl;
-
+    
     //Exit
     return 0;
 }
