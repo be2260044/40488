@@ -19,7 +19,7 @@ using namespace std;
 
 //Function Prototypes Here
 void t24Inpt(int &,int &);         //Inputs military time
-int cnvCalc(int,char &);           //Converts to standard time and adds A or P
+int cnvClc1(int,char &);           //Converts to standard time and adds A or P
 void t12Otpt(int,int,int,char);    //Outputs standard time
 
 //Program Execution Begins Here
@@ -43,7 +43,7 @@ int main(int argc, char** argv) {
         switch(choice){
             case '1':{
                 t24Inpt(milHrs,milMins);//Input
-            stdHrs=cnvCalc(milHrs,amPm);//Conversion set = to stdHrs
+            stdHrs=cnvClc1(milHrs,amPm);//Conversion set = to stdHrs
             t12Otpt(milHrs,milMins,stdHrs,amPm);//Output
             break;
                 }
@@ -86,7 +86,7 @@ void t24Inpt(int &hours,int &mins){
 //inputs: datatype, range/validity, units, description
 //outputs: datatype, range/validity, units, description
 //******************************************************************************
-int cnvCalc(int hours,char &aP){
+int cnvClc1(int hours,char &aP){
     if(hours>12){
         hours-=12;
         aP='P';}
