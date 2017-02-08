@@ -27,7 +27,6 @@ int main(int argc, char** argv) {
     
     //Declare all Variables Here
     const int SIZE=10;
-    int utilize=SIZE/2;
     int array[SIZE]={};//Initialize entire array to 0
     
     //Input or initialize values Here
