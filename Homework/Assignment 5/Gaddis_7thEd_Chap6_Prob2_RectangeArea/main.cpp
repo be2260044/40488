@@ -17,16 +17,17 @@ using namespace std;
 //Function Prototypes Here
 float gtLngth();
 float gtWdth();
-float areaCnv(float,float);
+float areaCnv(float=20.0,float=10.0);
 void  dspData(float,float,float);
 //Program Execution Begins Here
 int main(int argc, char** argv) {
     //Declare all Variables Here
-    float length,
-            width,
+    float length=0,
+            width=0,
             area;
     
     //Input or initialize values Here
+    cout<<"Default Area = "<<areaCnv()<<endl;
     length=gtLngth();
     width=gtWdth();
     area=areaCnv(length,width);
