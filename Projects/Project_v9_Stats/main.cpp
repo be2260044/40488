@@ -24,7 +24,7 @@ const int MILLION=1e6;//Million
 const int HUNTHSD=1e5;//one hundred thousand
 
 //Function Prototypes Here
-void gamePly(long int &,long int &,int=4);   //Computer Play Function
+void gamePly(long int &,long int &,int,int &,int &,int &);   //Computer Play Function
 void gamePly(long int &,long int &,unsigned short &,
         unsigned short &,unsigned short &);//Player Game Function
 char gtChce();                             //Get Choice
@@ -45,6 +45,16 @@ int main(int argc, char** argv) {
     unsigned short numGams=0,
                     wins=0,
                     losses=0;
+    int c1Wins=0,
+            c2Wins=0,
+            c3Wins=0,
+            c1Lss=0,
+            c2Lss=0,
+            c3Lss=0,
+            c1Gms=0,
+            c2Gms=0,
+            c3Gms=0;
+            
     string plyrNme;
     float winPct,
             lossPct;
@@ -53,12 +63,12 @@ int main(int argc, char** argv) {
     ifstream in;
     ofstream out;
     in.open("StartingMoney.dat");
-    out.open("ResultsOfGame.dat");
+    
     
     while(in>>mnyLeft);                     //Read in starting amount for player
     mnyLeft=mnyLeft>MILLION?HUNTHSD:mnyLeft;//Limit Starting amount
     potAmnt=mnyLeft;                        //Set pot = to starting money
-    
+    in.close();
     //Input or initialize values Here
     cout<<"Please enter your name."<<endl;//Determine Player name
     getline(cin,plyrNme);
@@ -83,13 +93,13 @@ int main(int argc, char** argv) {
         //Switch to determine number of computers and to loop each round
         switch(choice){
             case '3':{            //For Computer #3
-                gamePly(potAmnt,c3Money,3);
+                gamePly(potAmnt,c3Money,3,c3Wins,c3Lss,c3Gms);
             }
         case '2':{
-                gamePly(potAmnt,c2Money,2);
+                gamePly(potAmnt,c2Money,2,c2Wins,c2Lss,c2Gms);
             }
         case '1':{
-                gamePly(potAmnt,c1Money,1);
+                gamePly(potAmnt,c1Money,1,c1Wins,c1Lss,c1Gms);
         }
         }
     }while(potAmnt>0&&(mnyLeft>0||c1Money>0||c2Money>0||c3Money>0));
@@ -99,6 +109,7 @@ int main(int argc, char** argv) {
     lossPct=losses*1.0f/numGams*(pow(10,2));
     
     //Output
+    out.open("ResultsOfGame.dat");
     out<<setprecision(2)<<fixed<<endl;
     out<<"Game Over! Final Results:"<<endl;
     out<<plyrNme<<":  $"<<mnyLeft<<endl;
@@ -110,6 +121,11 @@ int main(int argc, char** argv) {
     out<<"Your Loss Percentage = "<<lossPct<<endl;
     out<<"Player Wins = "<<wins<<endl;
     out<<"Player Losses = "<<losses<<endl;
+    out.close();
+    out.open("Test.dat");
+    out<<"Games:  "<<c1Gms<<"  "<<c2Gms<<"  "<<c3Gms<<endl;
+    out<<"Wins :  "<<c1Wins<<"  "<<c2Wins<<"  "<<c3Wins<<endl;
+    out<<"Losses: "<<c1Lss<<"  "<<c2Lss<<"  "<<c3Lss<<endl;
     
     cout<<"Game Over! Please check ResultsOfGame.dat for results."<<endl;
     
@@ -146,7 +162,7 @@ char gtChce(){
     }return numComp;
 }
 
-void gamePly(long int &potAmnt,long int &cMoney,int cNum){
+void gamePly(long int &potAmnt,long int &cMoney,int cNum,int &w,int &l,int &g){
     for(int game=0;(game<=2)&&(cMoney>0)&&(potAmnt>0);game++){
                                  //Call random number generator for the dice
         char die1=rand()%12+1;   //Value from 1-12; Sets a Limit
@@ -170,20 +186,24 @@ void gamePly(long int &potAmnt,long int &cMoney,int cNum){
         cout<<endl;
         cout<<"The next Roll is:"<<static_cast<int>(die3)<<endl;
         cout<<endl;
-        winTest(die1,die2,die3)?//Win?
-                (cMoney+=betAmt3)&&      //C1's money increases
-                    (potAmnt-=betAmt3)&&  //Money pot decreases
-                    (cout<<"Computer "<<cNum<<" Won $"<<betAmt3<<endl)://Lose?
-            lssTest(die1,die2,die3)?    //Did the roll land on a limit?
-                (cMoney-=betAmt3*2)&&    //If true, lose double the bet
-                    (potAmnt+=betAmt3*2)&&//Money pot increases
-                    (cout<<"Computer "<<cNum<<" Lost $"<<2*betAmt3<<endl):
-                (cMoney-=betAmt3)&&     //Regular loss, just lose bet
-                    (potAmnt+=betAmt3)&& //Money pot increases
-                    (cout<<"Computer "<<cNum<<" Lost $"<<betAmt3<<endl);
+        if(winTest(die1,die2,die3)){//Win?
+            w++;
+            cMoney+=betAmt3;      //C1's money increases
+            potAmnt-=betAmt3; //Money pot decreases
+            cout<<"Computer "<<cNum<<" Won $"<<betAmt3<<endl;}//Lose?
+        else if (lssTest(die1,die2,die3)){    //Did the roll land on a limit?
+            l++;
+            cMoney-=betAmt3*2;    //If true, lose double the bet
+            potAmnt+=betAmt3*2;//Money pot increases
+            cout<<"Computer "<<cNum<<" Lost $"<<2*betAmt3<<endl;}
+        else(l++,
+            (cMoney-=betAmt3),     //Regular loss, just lose bet
+            (potAmnt+=betAmt3), //Money pot increases
+            (cout<<"Computer "<<cNum<<" Lost $"<<betAmt3<<endl));
         cout<<"Computer "<<cNum<<" has $"<<cMoney<<" left."<<endl;
         cout<<"There is $"<<potAmnt<<" left in the pot."<<endl;
         cout<<endl;
+        g++;
         (potAmnt<1)?(cout<<"No money left "
                 "in the pot!"<<endl)&&(game+=3):' ';
         (cMoney<1)?(cout<<"Computer "<<cNum<<" is out"

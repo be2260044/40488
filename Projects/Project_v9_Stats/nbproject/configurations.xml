@@ -26,6 +26,7 @@
       <itemPath>Makefile</itemPath>
       <itemPath>ResultsOfGame.dat</itemPath>
       <itemPath>StartingMoney.dat</itemPath>
+      <itemPath>Test.dat</itemPath>
     </logicalFolder>
   </logicalFolder>
   <projectmakefile>Makefile</projectmakefile>
