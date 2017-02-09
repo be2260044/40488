@@ -25,13 +25,19 @@ const int MILLION=1e6;//Million
 const int HUNTHSD=1e5;//one hundred thousand
 const int COLS=3;
 //Function Prototypes Here
-void gamePly(int [][COLS],vector<int> &,long int &,long int &,int,int &,int &,int &);//Computer Play Function
+void gamePly(int [][COLS],vector<int> &,long int &,long int &,
+        int,int &,int &,int &);//Computer Play Function
 void gamePly(int [],long int &,long int &,unsigned short &,
         unsigned short &,unsigned short &);//Player Game Function
-char gtChce();                             //Get Choice
+char gtChce();                             //Get Choice for # computers
+char gtChce2();                            //Get Choice for viewing array
+char gtChce3();                            //Get Choice for Searching Array
+char gtChce4();                            //Get Choice for Search Array
 bool winTest(char,char,char);
 bool lssTest(char,char,char);
-void prntAry(int [][COLS],int);
+void prntAry(int [],int);
+void srchAry(int [],int [],int);
+void srtAry(int [],int);
 //Program Execution Begins Here
 int main(int argc, char** argv) {
     //Set random number seed
@@ -39,12 +45,15 @@ int main(int argc, char** argv) {
     
     //Declare all Variables Here
     const int SIZE=500;
-    char choice;//Choice of amount of computers
-    long potAmnt=500,//Starting amount in pot
+    char choice=0,      //Choice of amount of computers
+            choice2=0,  //Choice for viewing array
+            choice3=0,  //Choice for searching
+            choice4=0;  //Choice for sorting
+    long potAmnt=500, //Default Starting amount in pot
             c1Money=0,
             c2Money=0,
             c3Money=0,
-            mnyLeft=0;
+            mnyLeft=500;
     unsigned short numGams=0,
                     wins=0,
                     losses=0;
@@ -56,9 +65,11 @@ int main(int argc, char** argv) {
             c3Lss=0,
             c1Gms=0,
             c2Gms=0,
-            c3Gms=0;
+            c3Gms=0,
+            val=0;
     int cBets[SIZE][COLS]={};
     int plrBets[SIZE]={};
+    int srchBet[SIZE]={};
     vector<int> compGms(SIZE);
     string plyrNme;
     float winPct,
@@ -143,18 +154,54 @@ int main(int argc, char** argv) {
     out<<"Player Losses = "<<losses<<endl;
     out.close();
     cout<<"Game Over! Please check ResultsOfGame.dat for results."<<endl;
-    
+    choice2=gtChce2();
+    if(choice2='1')prntAry(plrBets,SIZE);
+    else cout<<"sorry";
+    choice3=gtChce3();
+    if(choice3='1')srchAry(plrBets,srchBet,SIZE);
+    else cout<<"sorry";
+    choice4=gtChce4();
+    if(choice4='1'){srtAry(plrBets,SIZE);
+        prntAry(plrBets,SIZE);}
+    else cout<<"sorry";
     
 
     //Exit
     return 0;
 }
 
-void  prntAry(int bets[][COLS],int n){
-    
-    cout<<"Game:      Bets:"<<endl;
+void srtAry(int a[],int n){
+    for(int i=0;i<n-1;i++){
+        for(int j=i+1;j<n;j++){
+            if(a[i]>a[j]){
+                a[i]=a[i]^a[j];
+                a[j]=a[i]^a[j];
+                a[i]=a[i]^a[j];
+            }
+        }
+    }
+}
+
+void srchAry(int a[],int b[],int n){
+    int val=0;
+    cout<<"What amount do you want to find?"<<endl;
+    cin>>val;
+    cout<<endl;
+    cout<<val<<" was found at "<<endl;
+    for(int i=0,j=0;i<n;i++){
+        if(a[i]==val)b[j]=i,j++;
+    }
     for(int i=0;i<n;i++){
-        cout<<setw(3)<<bets[i][0]<<" $"<<setw(4)<<bets[i][1]<<endl;
+        (b[i]!=0)?cout<<b[i]<<" ":cout<<"";
+    }
+    cout<<endl;
+}
+
+void  prntAry(int bets[],int n){
+    
+    cout<<"Player Bets:"<<endl;
+    for(int i=0;i<n;i++){
+        if(bets[i]!=0)cout<<"$"<<bets[i]<<endl;
     }
     cout<<endl;
 }
@@ -186,7 +233,50 @@ char gtChce(){
     }return numComp;
 }
 
-void gamePly(int a[][COLS],vector<int> &v,long int &potAmnt,long int &cMoney,int cNum,int &w,int &l,int &g){
+char gtChce2(){
+    char numComp;
+    cout<<"Enter 1 to view the player bet array? "
+            <<endl;
+    cin>>numComp;
+    
+    //Validate choice for # of computers
+    while(numComp>'2'||numComp<'1'){
+        cout<<"Invalid choice, please enter "
+                "1 to view array"<<endl;
+        cin>>numComp;
+    }return numComp;
+}
+
+char gtChce3(){
+    char numComp;
+    cout<<"Enter 1 to search the player bet array? "
+            <<endl;
+    cin>>numComp;
+    
+    //Validate choice for # of computers
+    while(numComp>'2'||numComp<'1'){
+        cout<<"Invalid choice, please enter "
+                "1 to search array"<<endl;
+        cin>>numComp;
+    }return numComp;
+}
+
+char gtChce4(){
+    char numComp;
+    cout<<"Enter 1 to sort the player bet array? "
+            <<endl;
+    cin>>numComp;
+    
+    //Validate choice for # of computers
+    while(numComp>'2'||numComp<'1'){
+        cout<<"Invalid choice, please enter "
+                "1 to sort array"<<endl;
+        cin>>numComp;
+    }return numComp;
+}
+
+void gamePly(int a[][COLS],vector<int> &v,long int &potAmnt,
+        long int &cMoney,int cNum,int &w,int &l,int &g){
     //Initialize array
     
     for(int game=0;(game<=2)&&(cMoney>0)&&(potAmnt>0);game++){
