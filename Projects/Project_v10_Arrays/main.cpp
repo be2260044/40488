@@ -23,21 +23,21 @@ using namespace std;
 const short PERCENT=100;//Percentage conversion
 const int MILLION=1e6;//Million
 const int HUNTHSD=1e5;//one hundred thousand
-const int COLS=3;
+const int COLS=3;     //Column size
 //Function Prototypes Here
 void gamePly(int [][COLS],vector<int> &,long int &,long int &,
-        int,int &,int &,int &);//Computer Play Function
+        int,int &,int &,int &);            //Computer Play Function
 void gamePly(int [],long int &,long int &,unsigned short &,
         unsigned short &,unsigned short &);//Player Game Function
 char gtChce();                             //Get Choice for # computers
 char gtChce2();                            //Get Choice for viewing array
 char gtChce3();                            //Get Choice for Searching Array
 char gtChce4();                            //Get Choice for Search Array
-bool winTest(char,char,char);
-bool lssTest(char,char,char);
-void prntAry(int [],int);
-void srchAry(int [],int [],int);
-void srtAry(int [],int);
+bool winTest(char,char,char);              //Test for win
+bool lssTest(char,char,char);              //Test for type of loss
+void prntAry(int [],int);                  //Print the array
+void srchAry(int [],int [],int);           //Search the array
+void srtAry(int [],int);                   //Sort the Array
 //Program Execution Begins Here
 int main(int argc, char** argv) {
     //Set random number seed
@@ -57,7 +57,7 @@ int main(int argc, char** argv) {
     unsigned short numGams=0,
                     wins=0,
                     losses=0;
-    int c1Wins=0,
+    int c1Wins=0,      //Wins, losses, and games for computer
             c2Wins=0,
             c3Wins=0,
             c1Lss=0,
@@ -67,9 +67,9 @@ int main(int argc, char** argv) {
             c2Gms=0,
             c3Gms=0,
             val=0;
-    int cBets[SIZE][COLS]={};
-    int plrBets[SIZE]={};
-    int srchBet[SIZE]={};
+    int cBets[SIZE][COLS]={}; //Computer bets array
+    int plrBets[SIZE]={};     //Player best array
+    int srchBet[SIZE]={};     //Sorted player bets array
     vector<int> compGms(SIZE);
     string plyrNme;
     float winPct,
@@ -86,6 +86,12 @@ int main(int argc, char** argv) {
     potAmnt=mnyLeft*2;                        //Set pot = to starting money
     in.close();
     //Input or initialize values Here
+    cout<<"Lets play Between the Sheets"<<endl;
+    cout<<"The program will generate 2 random numbers between 1 and 12"<<endl;
+    cout<<"You will bet whether or not the next number "
+            "will be between these 2 numbers."<<endl;
+    cout<<"If the next number lands on one of the first 2,"
+            " you will lose double the bet."<<endl;
     cout<<"Please enter your name."<<endl;//Determine Player name
     getline(cin,plyrNme);
     choice=gtChce();
@@ -107,20 +113,20 @@ int main(int argc, char** argv) {
         //Start player's game
         gamePly(plrBets,potAmnt,mnyLeft,wins,losses,numGams);
         //Switch to determine number of computers and to loop each round
-        switch(choice){
-            case '3':{            //For Computer #3
+        switch(choice){   //Switch for Computer's Game play
+            case '3':{            
                 gamePly(cBets,compGms,potAmnt,c3Money,3,c3Wins,c3Lss,c3Gms);
             }
-        case '2':{
+            case '2':{
                 gamePly(cBets,compGms,potAmnt,c2Money,2,c2Wins,c2Lss,c2Gms);
             }
-        case '1':{
+            case '1':{
                 gamePly(cBets,compGms,potAmnt,c1Money,1,c1Wins,c1Lss,c1Gms);
-        }
+            }
         }
     }while(potAmnt>0&&(mnyLeft>0||c1Money>0||c2Money>0||c3Money>0));
     
-    //Print Array into file
+    //Print Array into file for the computer's bets
     out.open("CompBetsArray.dat");
     out<<"Game:      Bets:"<<endl;
     out<<"         C1:   C2:   C3:"<<endl;
@@ -154,6 +160,8 @@ int main(int argc, char** argv) {
     out<<"Player Losses = "<<losses<<endl;
     out.close();
     cout<<"Game Over! Please check ResultsOfGame.dat for results."<<endl;
+    
+    //Array, Searching, Sorting
     choice2=gtChce2();
     if(choice2='1')prntAry(plrBets,SIZE);
     else cout<<"sorry";
@@ -235,7 +243,7 @@ char gtChce(){
 
 char gtChce2(){
     char numComp;
-    cout<<"Enter 1 to view the player bet array? "
+    cout<<"Enter 1 to view the player bet array"
             <<endl;
     cin>>numComp;
     
@@ -249,7 +257,7 @@ char gtChce2(){
 
 char gtChce3(){
     char numComp;
-    cout<<"Enter 1 to search the player bet array? "
+    cout<<"Enter 1 to search the player bet array"
             <<endl;
     cin>>numComp;
     
@@ -263,7 +271,7 @@ char gtChce3(){
 
 char gtChce4(){
     char numComp;
-    cout<<"Enter 1 to sort the player bet array? "
+    cout<<"Enter 1 to sort the player bet array"
             <<endl;
     cin>>numComp;
     
@@ -275,7 +283,7 @@ char gtChce4(){
     }return numComp;
 }
 
-void gamePly(int a[][COLS],vector<int> &v,long int &potAmnt,
+void gamePly(int a[][COLS],vector<int> &v,long int &potAmnt,//Computer game play
         long int &cMoney,int cNum,int &w,int &l,int &g){
     //Initialize array
     
@@ -319,6 +327,7 @@ void gamePly(int a[][COLS],vector<int> &v,long int &potAmnt,
         cout<<"Computer "<<cNum<<" has $"<<cMoney<<" left."<<endl;
         cout<<"There is $"<<potAmnt<<" left in the pot."<<endl;
         cout<<endl;
+        cout<<endl;
         a[g][cNum-1]=betAmt;
         v[g]=g+1;
         g++;
@@ -329,6 +338,7 @@ void gamePly(int a[][COLS],vector<int> &v,long int &potAmnt,
         }
 }
 
+//User Game play
 void gamePly(int a[],long int &potAmnt,long int &monyLft,unsigned short &wins,
         unsigned short &losses,unsigned short &nGames){
     //First Loop is for the player
@@ -351,10 +361,12 @@ void gamePly(int a[],long int &potAmnt,long int &monyLft,unsigned short &wins,
         //Show how much money is in player's pocket and in the pot
         cout<<"You have $"<<monyLft<<" left."<<endl;
         cout<<"There is $"<<potAmnt<<" left in the pot."<<endl;
-
+        cout<<endl;
+        
         //Display the 2 limits
         cout<<"Will the next roll land between these 2 numbers?"<<endl;
         cout<<static_cast<int>(die1)<<"    "<<static_cast<int>(die2)<<endl;
+        cout<<endl;
         cout<<"Press 1 to Play or 2 to Pass"<<endl;
         cin>>decPlay;
         cout<<endl;
